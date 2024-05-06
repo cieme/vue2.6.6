@@ -92,26 +92,27 @@ export default {
         return numberArr.reverse();
       });
 
-      console.log(JSON.stringify(arrData));
-
       /* 第0位是毫秒,定义其规则 */
       const ruleArr = [1000, 60, 60, 24]; // 1000 毫秒,60 秒,60 分,24 小时
 
       /* 处理数据,数据超过规则进位 */
       arrData.forEach((item) => {
-        item.forEach((value, index) => {
+        /*  */
+        ruleArr.forEach((divisor, index) => {
           // 除数
-          const divisor = ruleArr[index];
-          // 余数
-          const remainder = value % divisor;
-          // 商
-          const quotient = Math.floor(value / divisor);
-          item[index] = remainder;
-          if (index + 1 <= item.length) {
-            if (item[index + 1] || quotient) {
-              item[index + 1] = (Number(item[index + 1]) || 0) + quotient;
+          const value = item[index];
+          if (value) {
+            // 余数
+            const remainder = value % divisor;
+            // 商
+            const quotient = Math.floor(value / divisor);
+            item[index] = remainder;
+            if (index + 1 <= item.length) {
+              if (item[index + 1] || quotient) {
+                item[index + 1] = (Number(item[index + 1]) || 0) + quotient;
+              }
+              // 却逻辑
             }
-            // 却逻辑
           }
         });
       });

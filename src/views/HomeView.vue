@@ -1,15 +1,16 @@
 <template>
   <div class="home">
-    <HelloWorld v-model="time" />
+    {{ time }}
+    <InputInterval v-model="time" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+import InputInterval from "@/components/InputInterval.vue";
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    InputInterval,
   },
   data() {
     return {
