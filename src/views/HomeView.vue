@@ -16,6 +16,18 @@
     />
 
     <div class="box1"></div>
+    {{ value }}
+    <InputPercentage
+      v-model="value"
+      :formatter="(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')"
+      :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
+    />
+    {{ value2 }}
+    <InputPercentage
+      v-model="value2"
+      :formatter="formatter"
+      :parser="parser1"
+    />
   </div>
 </template>
 
@@ -24,6 +36,7 @@ import InputInterval from "@/components/InputInterval.vue";
 import EditInteger from "@/components/EditInteger.vue";
 import EditReal from "@/components/EditReal.vue";
 import ExtendsCheckBox from "@/components/ExtendsCheckBox.vue";
+import InputPercentage from "@/components/inputPercentage.vue";
 
 export default {
   name: "HomeView",
@@ -32,6 +45,7 @@ export default {
     EditInteger,
     EditReal,
     ExtendsCheckBox,
+    InputPercentage,
   },
   data() {
     return {
@@ -44,10 +58,37 @@ export default {
         { label: "复选框 C", value: [5, 6] },
       ],
       checkList: [1, 2],
+      value: "9500",
+      value2: "1023",
     };
   },
 
-  methods: {},
+  methods: {
+    formatter1(value) {
+      const index = value.length - 2;
+      const newValue = value.replaceAll(".", "");
+      if (index > 0) {
+        return newValue.slice(0, index) + "." + newValue.slice(index);
+      }
+      return value;
+    },
+    parser1(value) {
+      return value.replaceAll(".", "");
+    },
+    formatter(value) {
+      const index = value.length - 2;
+      const reg = new RegExp(/\./, "g");
+      const newValue = value.replace(reg, "");
+      if (index > 0) {
+        return newValue.slice(0, index) + "." + newValue.slice(index);
+      }
+      return value;
+    },
+    parser(value) {
+      const reg = new RegExp(/\./, "g");
+      return value.replace(reg, "");
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
