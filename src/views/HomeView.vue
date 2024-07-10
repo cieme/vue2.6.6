@@ -28,6 +28,7 @@
       :formatter="formatter"
       :parser="parser1"
     />
+    <codemirror v-model="code" />
   </div>
 </template>
 
@@ -37,7 +38,7 @@ import EditInteger from "@/components/EditInteger.vue";
 import EditReal from "@/components/EditReal.vue";
 import ExtendsCheckBox from "@/components/ExtendsCheckBox.vue";
 import InputPercentage from "@/components/inputPercentage.vue";
-
+import codemirror from "@/components/codemirror.vue";
 export default {
   name: "HomeView",
   components: {
@@ -46,9 +47,11 @@ export default {
     EditReal,
     ExtendsCheckBox,
     InputPercentage,
+    codemirror,
   },
   data() {
     return {
+      code: "const a = 1",
       time: "",
       integer: "",
       real: "",
