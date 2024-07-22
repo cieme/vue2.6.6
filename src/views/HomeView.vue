@@ -28,7 +28,10 @@
       :formatter="formatter"
       :parser="parser1"
     />
-    <codemirror v-model="code" />
+    {{ code }}
+    <codemirror v-if="false" v-model="code" />
+    <CodeFlask v-model="code" />
+    <CodeJar v-if="false" />
   </div>
 </template>
 
@@ -39,6 +42,8 @@ import EditReal from "@/components/EditReal.vue";
 import ExtendsCheckBox from "@/components/ExtendsCheckBox.vue";
 import InputPercentage from "@/components/inputPercentage.vue";
 import codemirror from "@/components/codemirror.vue";
+import CodeFlask from "@/components/CodeFlask.vue";
+import CodeJar from "@/components/CodeJar.vue";
 export default {
   name: "HomeView",
   components: {
@@ -48,6 +53,8 @@ export default {
     ExtendsCheckBox,
     InputPercentage,
     codemirror,
+    CodeFlask,
+    CodeJar,
   },
   data() {
     return {
