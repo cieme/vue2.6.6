@@ -2,10 +2,17 @@
 // 使用方式：
 // <div v-resizable="'right, bottom'">
 
-const sideArr = ["right", "left", "top", "bottom"];
+const sideArr = [
+  "right",
+  "left",
+  "top",
+  "bottom",
+  "left-bottom",
+  "right-bottom",
+];
 const errmsg = "resizable needs string value of: " + sideArr;
 const minSize = 40;
-const dragSize = 5;
+const dragSize = 10;
 export const resizable = {
   // eslint-disable-next-line no-unused-vars
   bind(el, binding, vnode, oldVnode) {
@@ -28,7 +35,21 @@ export const resizable = {
     el.addEventListener("mousemove", (e) => {
       if (dragging) return;
 
-      if (dragable["right"] && el.offsetWidth - e.offsetX < dragSize) {
+      if (
+        dragable["left-bottom"] &&
+        el.offsetWidth - e.offsetX < dragSize &&
+        el.offsetHeight - e.offsetY < dragSize
+      ) {
+        el.style.cursor = "nwse-resize";
+        dragSide = "right-bottom";
+      } else if (
+        dragable["right-bottom"] &&
+        e.offsetX < dragSize &&
+        el.offsetHeight - e.offsetY < dragSize
+      ) {
+        el.style.cursor = "nesw-resize";
+        dragSide = "left-bottom";
+      } else if (dragable["right"] && el.offsetWidth - e.offsetX < dragSize) {
         el.style.cursor = "ew-resize";
         dragSide = "right";
       } else if (dragable["left"] && e.offsetX < dragSize) {
@@ -60,7 +81,13 @@ export const resizable = {
 
       const movefun = (e) => {
         e.preventDefault();
-        if (
+        if (dragSide === "right-bottom") {
+          el.style.width = elW + (e.clientX - clientX) + "px";
+          el.style.height = elH + (e.clientY - clientY) + "px";
+        } else if (dragSide === "left-bottom") {
+          el.style.width = elW + (clientX - e.clientX) + "px";
+          el.style.height = elH + (e.clientY - clientY) + "px";
+        } else if (
           dragSide === "right" &&
           (e.clientX > clientX || el.offsetWidth >= minSize)
         ) {

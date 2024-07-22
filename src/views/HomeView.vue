@@ -35,9 +35,7 @@
 
     <DragDialog v-if="false" />
 
-    <div style="padding: 20px">
-      <div class="box2" v-resizable="'right, bottom'"></div>
-    </div>
+    <ResizeDialog :width.sync="width" :height.sync="height" />
   </div>
 </template>
 
@@ -51,6 +49,7 @@ import codemirror from "@/components/codemirror.vue";
 import CodeFlask from "@/components/CodeFlask.vue";
 import CodeJar from "@/components/CodeJar.vue";
 import DragDialog from "@/components/DragDialog/DragDialog.vue";
+import ResizeDialog from "@/components/DragDialog/ResizeDialog.vue";
 
 import { resizable } from "@/directives/resizable";
 export default {
@@ -65,12 +64,15 @@ export default {
     CodeFlask,
     CodeJar,
     DragDialog,
+    ResizeDialog,
   },
   directives: {
     resizable,
   },
   data() {
     return {
+      width: 700,
+      height: 500,
       code: "const a = 1",
       time: "",
       integer: "",
@@ -191,5 +193,18 @@ export default {
   image-rendering: pixelated;
   // -webkit-box-reflect: below;
   // -webkit-box-reflect: right;
+}
+.resize {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  inset: 0;
+  margin: auto;
+  background: goldenrod;
+}
+</style>
+<style lang="scss">
+body {
+  position: relative;
 }
 </style>
