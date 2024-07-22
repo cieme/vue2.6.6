@@ -30,8 +30,14 @@
     />
     {{ code }}
     <codemirror v-if="false" v-model="code" />
-    <CodeFlask v-model="code" />
+    <CodeFlask v-if="false" v-model="code" />
     <CodeJar v-if="false" />
+
+    <DragDialog v-if="false" />
+
+    <div style="padding: 20px">
+      <div class="box2" v-resizable="'right, bottom'"></div>
+    </div>
   </div>
 </template>
 
@@ -44,6 +50,9 @@ import InputPercentage from "@/components/inputPercentage.vue";
 import codemirror from "@/components/codemirror.vue";
 import CodeFlask from "@/components/CodeFlask.vue";
 import CodeJar from "@/components/CodeJar.vue";
+import DragDialog from "@/components/DragDialog/DragDialog.vue";
+
+import { resizable } from "@/directives/resizable";
 export default {
   name: "HomeView",
   components: {
@@ -55,6 +64,10 @@ export default {
     codemirror,
     CodeFlask,
     CodeJar,
+    DragDialog,
+  },
+  directives: {
+    resizable,
   },
   data() {
     return {
@@ -154,10 +167,11 @@ export default {
   width: 200px;
   height: 200px;
   border: 1px solid #333;
-  border-radius: 50%;
+  // border-radius: 50%;
   background-image: conic-gradient(generateImage(4, 45));
   image-rendering: pixelated;
   // -webkit-box-reflect: below;
+  border: 2px solid #333;
 }
 .box3 {
   width: 200px;
