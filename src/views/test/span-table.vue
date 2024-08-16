@@ -17,22 +17,30 @@ export default {
     return {
       tableData: [],
       mergeObj: {},
-      labelArr: [
-        "id",
-        "date",
-        "name",
-        "address",
-        "address1",
-        "address2",
-        "address3",
-      ],
+      labelArr: [],
     };
   },
   mounted() {
+    this.setLabelArr();
     this.spanDataMerge2(data);
     this.tableData = data;
   },
   methods: {
+    setLabelArr() {
+      this.labelArr = [
+        "subject",
+        "11:00:00",
+        "11:15:00",
+        "13:30:00",
+        "13:45:00",
+        "14:00:00",
+        "14:15:00",
+        "14:30:00",
+        "endTime",
+        "startTime",
+        "status",
+      ];
+    },
     spanDataMerge2(data) {
       const mergeObj = {};
       const labelArr = this.labelArr;
