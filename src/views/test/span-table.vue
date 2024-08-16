@@ -10,12 +10,13 @@
   </el-table>
 </template>
 <script>
+import data from "./data.json";
 export default {
   name: "SpanTable",
   data() {
     return {
       tableData: [],
-      mergeList: [],
+      mergeObj: {},
       labelArr: [
         "id",
         "date",
@@ -28,46 +29,7 @@ export default {
     };
   },
   mounted() {
-    const data = [
-      {
-        id: "0",
-        date: "2016-05-02",
-        name: "王小虎",
-        address: "address",
-        address1: "address",
-        address2: "address1",
-        address3: "address1",
-      },
-      {
-        id: "1",
-        date: "2016-05-02",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄",
-        address1: "上海市普陀区金沙江路 1518 弄",
-        address2: "上海市普陀区金沙江路 1518 弄",
-        address3: "上海市",
-      },
-      {
-        id: "2",
-        date: "王小虎的地址",
-        name: "王小虎的地址",
-        address: "王小虎的地址",
-        address1: "王小虎的地址",
-        address2: "王小虎的地址",
-        address3: "王小虎的地址",
-      },
-      {
-        id: "3",
-        date: "2016-05-02",
-        name: "王小虎",
-        address: "王小虎的地址",
-        address1: "王小虎的地址",
-        address2: "zzz",
-        address3: "zzz",
-      },
-    ];
     this.spanDataMerge2(data);
-
     this.tableData = data;
   },
   methods: {
@@ -110,16 +72,14 @@ export default {
           mergeObj[`${rowIndex}_${columnIndex}`] = obj;
         });
       });
-      this.mergeList = mergeObj;
-      console.log(this.mergeList);
+      this.mergeObj = mergeObj;
     },
 
     /**
      * 实现element合并
      */
-    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
-      row, column, rowIndex, columnIndex;
-      const x = this.mergeList[`${rowIndex}_${columnIndex}`];
+    arraySpanMethod({ rowIndex, columnIndex }) {
+      const x = this.mergeObj[`${rowIndex}_${columnIndex}`];
       return {
         colspan: x.span,
         rowspan: 1,
