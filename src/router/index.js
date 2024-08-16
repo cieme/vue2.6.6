@@ -31,6 +31,22 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "ZhongYan" */ "../views/ZhongYan.vue"),
   },
+  {
+    path: "/test",
+    name: "test",
+    component: () =>
+      import(/* webpackChunkName: "Layout" */ "../components/layout/index.vue"),
+    children: [
+      {
+        path: "/span-table",
+        name: "span-table ",
+        component: () =>
+          import(
+            /* webpackChunkName: "SpanTable" */ "../views/test/span-table.vue"
+          ),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

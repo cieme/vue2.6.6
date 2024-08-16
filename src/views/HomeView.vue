@@ -52,6 +52,17 @@ import DragDialog from "@/components/DragDialog/DragDialog.vue";
 import ResizeDialog from "@/components/DragDialog/ResizeDialog.vue";
 
 import { resizable } from "@/directives/resizable";
+const mixin = {
+  watch: {
+    list: {
+      deep: true,
+      handler(newVal) {
+        console.log(newVal, "x");
+      },
+      immediate: true,
+    },
+  },
+};
 export default {
   name: "HomeView",
   components: {
@@ -69,6 +80,7 @@ export default {
   directives: {
     resizable,
   },
+  mixins: [mixin],
   data() {
     return {
       width: 700,
@@ -87,7 +99,16 @@ export default {
       value2: "1023",
     };
   },
-
+  watch: {
+    list: {
+      deep: true,
+      handler(newVal) {
+        console.log(newVal, "y");
+      },
+      immediate: true,
+    },
+  },
+  mounted() {},
   methods: {
     formatter1(value) {
       const index = value.length - 2;
