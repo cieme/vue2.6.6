@@ -49,12 +49,12 @@ export default {
       },
       {
         id: "2",
-        date: "2016-05-02",
-        name: "王小虎",
-        address: "王小虎家",
-        address1: "王小虎家",
-        address2: "yyy",
-        address3: "yyy",
+        date: "王小虎的地址",
+        name: "王小虎的地址",
+        address: "王小虎的地址",
+        address1: "王小虎的地址",
+        address2: "王小虎的地址",
+        address3: "王小虎的地址",
       },
       {
         id: "3",
@@ -67,17 +67,7 @@ export default {
       },
     ];
     this.spanDataMerge2(data);
-    // this.dataToSpan(data);
 
-    // data.forEach((item) => {
-    //   console.log(item);
-    //   for (const key in item) {
-    //     if (item[key] === "") {
-    //       delete item[key];
-    //     }
-    //   }
-    // });
-    console.log(data);
     this.tableData = data;
   },
   methods: {
@@ -97,9 +87,16 @@ export default {
             value: currentValue,
             label: [],
           };
-          const hasThisValue = Object.values(mergeObj).find(
-            (item) => item.value === prevValue
+
+          const keys = Object.keys(mergeObj).filter(
+            (item) => item.search(`${rowIndex}_`) > -1
           );
+
+          const values = [];
+          keys.forEach((key) => {
+            values.push(mergeObj[key]);
+          });
+          const hasThisValue = values.find((item) => item.value === prevValue);
           if (currentValue === prevValue) {
             // 这个判断有点问题，必须值唯一
             if (!hasThisValue) {
@@ -116,27 +113,7 @@ export default {
       this.mergeList = mergeObj;
       console.log(this.mergeList);
     },
-    /* 处理数据 改为 '' */
-    dataToSpan(data) {
-      data.forEach((tableCurrentRow, tableRowIndex) => {
-        const currentMergeRow = this.mergeList[tableRowIndex];
 
-        currentMergeRow.forEach((list, columnIndex) => {
-          columnIndex;
-          // console.log(tableCurrentRow, tableRowIndex, list, columnIndex);
-          if (list.rowIndex === tableRowIndex) {
-            currentMergeRow.forEach((item) => {
-              item.label.forEach((label, index) => {
-                if (index !== 0) {
-                  tableCurrentRow[label] = "";
-                }
-              });
-            });
-            // console.log(tableCurrentRow);
-          }
-        });
-      });
-    },
     /**
      * 实现element合并
      */
